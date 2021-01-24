@@ -5,10 +5,42 @@ SEQUENCE = "w"
 
 class Menu:
     def __init__(self):
-        pass
+        screen.fill(pygame.Color("grey"))
+
+        f1 = pygame.font.SysFont('candara', 56)
+        f2 = pygame.font.SysFont('candara', 36)
+        f3 = pygame.font.SysFont('candara', 10)
+        text1 = f1.render('Шашки', True,
+                          (0, 0, 0))
+        text2 = f2.render("Новая игра с компьютером", True,
+                          (0, 0, 0))
+        text3 = f2.render("Новая игра с другом", True,
+                          (0, 0, 0))
+        text4 = f3.render("Powered by \"Надежда умирает последней\" community.", True,
+                          (0, 0, 0))
+        screen.blit(text1, (260, 100))
+        screen.blit(text2, (150, 330))
+        screen.blit(text3, (190, 450))
+        screen.blit(text4, (450, 680))
+
+        pygame.draw.rect(screen, pygame.Color("black"), (140, 320, 445, 50), 1)
+        pygame.draw.rect(screen, pygame.Color("black"), (180, 440, 340, 50), 1)
+        pygame.display.update()
 
     def main(self):
-        pass
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                '''elif event.type == pygame.MOUSEBUTTONUP:
+                    board.sq_coor(event.pos)
+            board.render()
+            pygame.display.flip()'''
+            clock.tick(100)
+        pygame.quit()
+
+    def sq_coor(self):
 
 
 class Board:
@@ -192,15 +224,17 @@ if __name__ == '__main__':
     size = width, height = 700, 700
     screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
-    board = Board()
+    menu = Menu()
+    menu.main()
+    # board = Board()
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.MOUSEBUTTONUP:
+            '''elif event.type == pygame.MOUSEBUTTONUP:
                 board.sq_coor(event.pos)
         board.render()
-        pygame.display.flip()
+        pygame.display.flip()'''
         clock.tick(100)
     pygame.quit()
