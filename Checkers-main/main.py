@@ -41,6 +41,7 @@ class Menu:
         pygame.quit()
 
     def sq_coor(self):
+        pass
 
 
 class Board:
