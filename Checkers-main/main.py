@@ -9,7 +9,7 @@ class Menu:
 
         f1 = pygame.font.SysFont('candara', 56)
         f2 = pygame.font.SysFont('candara', 36)
-        f3 = pygame.font.SysFont('candara', 10)
+        f3 = pygame.font.SysFont('candara', 15)
         text1 = f1.render('Шашки', True,
                           (0, 0, 0))
         text2 = f2.render("Новая игра с компьютером", True,
@@ -21,7 +21,7 @@ class Menu:
         screen.blit(text1, (260, 100))
         screen.blit(text2, (150, 330))
         screen.blit(text3, (190, 450))
-        screen.blit(text4, (450, 680))
+        screen.blit(text4, (330, 680))
 
         pygame.draw.rect(screen, pygame.Color("black"), (140, 320, 445, 50), 1)
         pygame.draw.rect(screen, pygame.Color("black"), (180, 440, 340, 50), 1)
@@ -33,15 +33,29 @@ class Menu:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                '''elif event.type == pygame.MOUSEBUTTONUP:
-                    board.sq_coor(event.pos)
-            board.render()
-            pygame.display.flip()'''
+                elif event.type == pygame.MOUSEBUTTONUP:
+                    self.sq_coor(event.pos)
+            pygame.display.flip()
             clock.tick(100)
         pygame.quit()
 
-    def sq_coor(self):
-        pass
+    def sq_coor(self, pos):
+        if 140 < pos[0] < 585 and 320 < pos[1] < 360:
+            board = Board()
+            running = True
+            while running:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        running = False
+                    elif event.type == pygame.MOUSEBUTTONUP:
+                        board.sq_coor(event.pos)
+                board.render()
+                pygame.display.flip()
+                clock.tick(100)
+            pygame.quit()
+            exit(0)
+        if 180 < pos[0] < 520 and 440 < pos[1] < 490:
+            print('second')
 
 
 class Board:
@@ -228,14 +242,14 @@ if __name__ == '__main__':
     menu = Menu()
     menu.main()
     # board = Board()
-    running = True
+    ''' running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            '''elif event.type == pygame.MOUSEBUTTONUP:
+                elif event.type == pygame.MOUSEBUTTONUP:
                 board.sq_coor(event.pos)
         board.render()
-        pygame.display.flip()'''
+        pygame.display.flip()
         clock.tick(100)
-    pygame.quit()
+    pygame.quit()'''
