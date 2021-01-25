@@ -52,6 +52,7 @@ class Menu:
                 board.render()
                 pygame.display.flip()
                 clock.tick(100)
+
             pygame.quit()
             exit(0)
         if 180 < pos[0] < 520 and 440 < pos[1] < 490:
