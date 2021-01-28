@@ -12,19 +12,19 @@ class Menu:
         f3 = pygame.font.SysFont('candara', 15)
         text1 = f1.render('Шашки', True,
                           (0, 0, 0))
-        text2 = f2.render("Новая игра с компьютером", True,
+        text2 = f2.render("Новая игра", True,
                           (0, 0, 0))
         text3 = f2.render("Новая игра с другом", True,
                           (0, 0, 0))
         text4 = f3.render("Powered by \"Надежда умирает последней\" community.", True,
                           (0, 0, 0))
-        screen.blit(text1, (260, 100))
-        screen.blit(text2, (150, 330))
-        screen.blit(text3, (190, 450))
-        screen.blit(text4, (330, 680))
+        screen.blit(text1, (310, 100))
+        screen.blit(text2, (300, 330))
+        screen.blit(text3, (240, 430))
+        screen.blit(text4, (435, 680))
 
-        pygame.draw.rect(screen, pygame.Color("black"), (140, 320, 445, 50), 1)
-        pygame.draw.rect(screen, pygame.Color("black"), (180, 440, 340, 50), 1)
+        pygame.draw.rect(screen, pygame.Color("black"), (230, 320, 340, 50), 1)
+        pygame.draw.rect(screen, pygame.Color("black"), (230, 420, 340, 50), 1)
         pygame.display.update()
 
     def main(self):
@@ -34,13 +34,13 @@ class Menu:
                 if event.type == pygame.QUIT:
                     running = False
                 elif event.type == pygame.MOUSEBUTTONUP:
-                    self.sq_coor(event.pos)
+                    self.sq_coor_menu(event.pos)
             pygame.display.flip()
             clock.tick(100)
         pygame.quit()
 
-    def sq_coor(self, pos):
-        if 140 < pos[0] < 585 and 320 < pos[1] < 360:
+    def sq_coor_menu(self, pos):
+        if 180 < pos[0] < 570 and 320 < pos[1] < 370:
             board = Board()
             running = True
             while running:
@@ -52,15 +52,15 @@ class Menu:
                 board.render()
                 pygame.display.flip()
                 clock.tick(100)
-
             pygame.quit()
             exit(0)
-        if 180 < pos[0] < 520 and 440 < pos[1] < 490:
-            print('second')
+        if 180 < pos[0] < 520 and 420 < pos[1] < 470:
+            print('This function isn\'t available now')
 
 
 class Board:
     def __init__(self):
+        self.start_time = pygame.time.get_ticks()
         # Список фигур
         self.board_sq = []
         for i in range(64):
@@ -96,6 +96,10 @@ class Board:
     def render(self):
         # Фон
         screen.fill(pygame.Color("grey"))
+        f3 = pygame.font.SysFont('calibri', 30)
+        timer = f3.render(str((pygame.time.get_ticks() - self.start_time) // 100 / 10), True,
+                          (0, 0, 0))
+        screen.blit(timer, (715, 340))
         # Проход по всем клеткам и их отрисовка
         for j in range(self.height):
             for i in range(self.width):
@@ -243,6 +247,7 @@ class Board:
                                     else:
                                         SEQUENCE = "w"
                                     self.clear_board()
+                                    self.check_beat_checker(SEQUENCE)
                         else:
                             if self.board_sq[pos[0] + pos[1] * 8] == [SEQUENCE, 1]:
                                 self.clear_board()
@@ -269,20 +274,8 @@ class Board:
 if __name__ == '__main__':
     pygame.init()
     pygame.display.set_caption("Checkers")
-    size = width, height = 700, 700
-    screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
+    size = width, height = 800, 700
+    screen = pygame.display.set_mode(size)
     menu = Menu()
     menu.main()
-    # board = Board()
-    ''' running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-                elif event.type == pygame.MOUSEBUTTONUP:
-                board.sq_coor(event.pos)
-        board.render()
-        pygame.display.flip()
-        clock.tick(100)
-    pygame.quit()'''
