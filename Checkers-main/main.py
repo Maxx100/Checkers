@@ -100,10 +100,15 @@ class Board:
     def render(self):
         # Фон
         screen.fill(pygame.Color("grey"))
-        f3 = pygame.font.SysFont('calibri', 30)
-        timer = f3.render(str((pygame.time.get_ticks() - self.start_time) // 100 / 10), True,
+        f4 = pygame.font.SysFont('calibri', 30)
+        f5 = pygame.font.SysFont('calibri', 20)
+        timer = f4.render(str((pygame.time.get_ticks() - self.start_time) // 100 / 10), True,
                           (0, 0, 0))
-        screen.blit(timer, (715, 340))
+        now_move = f5.render('Сейчас ход', True, (0, 0, 0))
+        cur_sequence = f5.render('белых!' if SEQUENCE == 'w' else 'чёрных!', True, (0, 0, 0))
+        screen.blit(timer, (700, 665))
+        screen.blit(now_move, (700, 20))
+        screen.blit(cur_sequence, (720, 40))
         # Проход по всем клеткам и их отрисовка
         for j in range(self.height):
             for i in range(self.width):
